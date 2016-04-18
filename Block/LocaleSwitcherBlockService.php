@@ -15,6 +15,7 @@ use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * @author Nicolas Bastien <nbastien.pro@gmail.com>
@@ -22,15 +23,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class LocaleSwitcherBlockService extends BaseBlockService
 {
     /**
+     * @deprecated Will be removed when upgrading to SonataBlockBundle 3
+     */
+    public function setDefaultSettings(OptionsResolverInterface $resolver)
+    {
+        $this->configureSettings($resolver);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
-                'admin'     => null,
-                'object'    => null,
-                'template'  => 'SonataTranslationBundle:Block:block_locale_switcher.html.twig',
+                'admin'                 => null,
+                'object'                => null,
+                'template'              => 'SonataTranslationBundle:Block:block_locale_switcher.html.twig',
+                'locale_switcher_route' => null,
             )
         );
     }
